@@ -21,7 +21,7 @@ Este repositório contém um sistema simples para gerenciamento de vendas de bol
 ## Como Usar  
 1. **Clone este repositório:**  
    ```bash
-   git clone https://github.com/seu-usuario/sistema-vendas-bolos.git
+   git clone https://github.com/ndrero/Desafio-Unidev-SQL.git
    ```
 2. **Importe o script SQL** no seu banco de dados MySQL.  
 3. **Execute consultas** para inserir, atualizar ou buscar informações.  
