@@ -18,6 +18,12 @@ Este repositório contém um sistema simples para gerenciamento de vendas de bol
 - **Banco de Dados:** MySQL  
 - **Linguagem:** SQL  
 
+## Diagrama Entidade-Relacionamento
+<div align="center">
+  <img width="1009" alt="image" src="https://github.com/user-attachments/assets/e7eb8670-5af8-46cf-b21b-885c659953c8" />
+</div>
+
+
 ## Como Usar  
 1. **Clone este repositório:**  
    ```bash
