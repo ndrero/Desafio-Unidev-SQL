@@ -20,7 +20,7 @@ Este repositório contém um sistema simples para gerenciamento de vendas de bol
 
 ## Diagrama Entidade-Relacionamento
 <div align="center">
-  <img width="1009" alt="image" src="https://github.com/user-attachments/assets/e7eb8670-5af8-46cf-b21b-885c659953c8" />
+  <img width="1011" alt="image" src="https://github.com/user-attachments/assets/a3bb5dee-1ca0-4607-a42d-125faf75de82" />
 </div>
 
 
