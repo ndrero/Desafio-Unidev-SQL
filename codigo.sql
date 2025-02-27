@@ -47,6 +47,7 @@ CREATE TABLE itens_venda (
     id_venda INT NOT NULL,
     id_bolo INT NOT NULL,
     quantidade INT,
+    preco_unitario DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (id_venda) REFERENCES vendas(id),
     FOREIGN KEY (id_bolo) REFERENCES bolos(id)
 );
@@ -92,15 +93,15 @@ INSERT INTO vendas (id_cliente, data_venda, id_pagamento, total) VALUES
 (7, '2023-05-30 14:00:00', 2, 120.00),
 (8, '2024-02-18 17:25:00', 4, 75.00);
 
-INSERT INTO itens_venda (id_venda, id_bolo, quantidade) VALUES
-    (1, 1, 2),
-    (2, 2, 3),
-    (3, 3, 1),
-    (4, 4, 4),
-    (5, 1, 1),
-    (6, 2, 2),
-    (7, 3, 1),
-    (8, 4, 1);
+INSERT INTO itens_venda (id_venda, id_bolo, quantidade, preco_unitario) VALUES
+    (1, 1, 2, 30.00),
+    (2, 2, 3, 50.00),
+    (3, 3, 1, 70.00),
+    (4, 4, 4, 15.00),
+    (5, 1, 1, 30.00),
+    (6, 2, 2, 50.00),
+    (7, 3, 1, 70.00),
+    (8, 4, 1, 15.00);
 
 
 -- Mostra a disposição de bolos em estoque
@@ -115,17 +116,18 @@ JOIN categoria_bolo cb ON b.id_categoria_bolo = cb.id;
 
 -- Em quais meses ocorreram mais vendas
 SELECT
-    DATE_FORMAT(data_venda, '%Y-%m') AS mes,
-    SUM(total) as total
-FROM vendas
-GROUP BY mes
-ORDER BY total desc;
+	DATE_FORMAT(data_venda, '%Y-%m') AS mes,
+	SUM(iv.quantidade * iv.preco_unitario) as total
+FROM vendas v
+JOIN itens_venda iv ON v.id = iv.id_venda
+GROUP BY mes 
+ORDER BY total desc
 
 -- Quantas unidades ele vendeu em cada ano e quanto isso gerou de receita para ele
 SELECT
     SUM(iv.quantidade) AS quantidade_vendida,
     DATE_FORMAT(v.data_venda, '%Y') AS ano,
-    SUM(iv.quantidade * b.preco) AS total
+    SUM(iv.quantidade * iv.preco_unitario) AS total
 FROM itens_venda iv
 JOIN vendas v ON iv.id_venda = v.id
 JOIN bolos b ON iv.id_bolo = b.id
@@ -136,7 +138,7 @@ ORDER BY total DESC;
 SELECT
     SUM(iv.quantidade) AS quantidade_vendida,
     DATE_FORMAT(v.data_venda, '%Y-%m') AS mes,
-    SUM(iv.quantidade * b.preco) AS total
+    SUM(iv.quantidade * iv.preco_unitario) AS total
 FROM itens_venda iv
 JOIN vendas v ON iv.id_venda = v.id
 JOIN bolos b ON iv.id_bolo = b.id
@@ -146,9 +148,10 @@ ORDER BY total DESC;
 -- Quais clientes mais compram (por valor gasto)
 SELECT
     c.nome AS nome,
-    SUM(v.total) as total
+    SUM(iv.quantidade * iv.preco_unitario) as total
 FROM clientes c
 JOIN vendas v ON c.id = v.id_cliente
+JOIN itens_venda iv ON v.id = iv.id_venda
 GROUP BY nome 
 ORDER BY total DESC;
 
